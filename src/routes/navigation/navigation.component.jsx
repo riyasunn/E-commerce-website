@@ -1,4 +1,4 @@
-import { Fragment, useContext } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 import CartIcon from "../../components/cart-icon/cart-icon.component";
@@ -12,8 +12,11 @@ import { useSelector, useDispatch} from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { signOutStart } from '../../store/user/user.action';
+import SearchBar from "../../components/search-bar/search-bar.component";
 
 const Navigation = () => {
+  
+
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   // const { currentUser } = useContext(UserContext);
@@ -32,6 +35,7 @@ const Navigation = () => {
         <LogoContainer to="/">
           <CrwnLogo className="logo"/>
         </LogoContainer>
+        <SearchBar />
         <NavLinks>
           <NavLink to="/shop">
             SHOP
@@ -46,7 +50,9 @@ const Navigation = () => {
           <CartIcon />
         </NavLinks>
         { isCartOpen && <CartDropdown/> }
+        
       </NavigationContainer>
+      
       <Outlet />
     </Fragment>
   );
