@@ -1,43 +1,55 @@
 import { useSelector } from 'react-redux';
 import { selectCategoriesMap } from '../../store/categories/category.selector';
 import { useEffect, useState } from "react";
-import ProductCard from '../product-card/product-card.component';
+import Test from './test.component';
+// import Button from '../button/button.component';
 
 const SearchBar = () => {
+
+     // set up search field:
+     const [searchField, setSearchField] = useState('');
+     const onSearchChange = (event) => {
+         const searchFieldString = event.target.value.toLocaleLowerCase();   
+         console.log(searchFieldString);
+         setSearchField(searchFieldString);
+     };
+
+    //get products data:
     const categoriesMap = useSelector(selectCategoriesMap);
-    const [searchField, setSearchField] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState([]);
+    console.log("searchbar", categoriesMap);
 
-    // onSearchChange handler:
-    const onSearchChange = (event) => {
-        const searchFieldString = event.target.value.toLocaleLowerCase();   
-        console.log(searchFieldString);
-        setSearchField(searchFieldString);
-    };
-    //filter:
+    // transfer products data type:
+    var allProducts= [];
+    Object.keys(categoriesMap).map((title) => {
+       const products = categoriesMap[title];
+       console.log(title, products);
+       allProducts.push(...products);
+       console.log("current products", allProducts);
+   });
+       console.log("all products", allProducts)
     
-    
+   
+    //filter products:
+    const [ filteredProducts, setFilteredProducts ] = useState(allProducts);
+
     useEffect(() => {
-        const newFilteredProducts = categoriesMap.filter((category) => {
-            return category.name.toLocaleLowerCase().includes(searchField);
+        const newFilteredProducts = allProducts.filter((product) => {
+            return product.name.toLocaleLowerCase().includes(searchField);
         });
-
         setFilteredProducts(newFilteredProducts);
-    }, [searchField])
+    }, [searchField, allProducts]);
   
 
 
     return (
-        <div>
+        <>
             <input 
             type='search'
             placeholder="search products"
             onChange={onSearchChange}
-            
             />
-         { /*  <ProductCard Product = {filteredProducts} /> */}
-            
-        </div>
+            <Test filteredProducts={filteredProducts}/>
+        </>
     )
 };
 

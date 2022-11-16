@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 import CartIcon from "../../components/cart-icon/cart-icon.component";
@@ -11,6 +11,7 @@ import { NavigationContainer, NavLinks, NavLink, LogoContainer } from './navigat
 import { useSelector, useDispatch} from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { fetchCategoriesStart } from "../../store/categories/category.action";
 import { signOutStart } from '../../store/user/user.action';
 import SearchBar from "../../components/search-bar/search-bar.component";
 
@@ -19,16 +20,13 @@ const Navigation = () => {
 
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  // const { currentUser } = useContext(UserContext);
   const isCartOpen = useSelector(selectIsCartOpen);
-  // const { isCartOpen } = useContext(CartContext);
-  // console.log(currentUser);
 
-  // const signOutHandler = async () => {
-  //   await signOutUser();
-  //   // setCurrentUser(null);
   const signOutUser = () => dispatch(signOutStart());
-   
+  
+  useEffect(() => { dispatch(fetchCategoriesStart())}, []);
+
+
   return (
     <Fragment>
       < NavigationContainer >
