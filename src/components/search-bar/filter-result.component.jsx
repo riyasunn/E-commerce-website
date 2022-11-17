@@ -1,17 +1,18 @@
+import { FilterContainer } from "./filter-result.style";
 import ProductCard from "../product-card/product-card.component";
 
-const Test = ({filteredProducts}) => {
+const FilterResult = ({filteredProducts}) => {
     
     
  
     return (
-        <div>
+        <FilterContainer>
             {filteredProducts.map((product) => 
             <ProductCard key={product.id} product={product}/>)
             }
         
-        </div>
+        </FilterContainer>
     )
 };
 
-export default Test;
+export default FilterResult;

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { selectCategoriesMap } from '../../store/categories/category.selector';
 import { useEffect, useState } from "react";
-import Test from './test.component';
+import FilterResult from './filter-result.component';
 // import Button from '../button/button.component';
 
 const SearchBar = () => {
@@ -48,7 +48,7 @@ const SearchBar = () => {
             placeholder="search products"
             onChange={onSearchChange}
             />
-            <Test filteredProducts={filteredProducts}/>
+            <FilterResult filteredProducts={filteredProducts}/>
         </>
     )
 };
