@@ -29,13 +29,14 @@ export const selectAllProducts = createSelector(
   (acc) => {
     console.log("selectAllProducts fired");
     var allProducts = [];
-    Object.keys(acc).map((title) => {
+    allProducts = Object.keys(acc).map((title) => {
       const products = acc[title];
       console.log(title, products);
-      allProducts.push(...products);
-      return 0;
+    //   allProducts.push(...products);
+      return products;
     });
-    return allProducts;
+    console.log("selectAllProducts ------",allProducts.flat());
+    return allProducts.flat();
   }
 );
 
