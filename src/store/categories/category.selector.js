@@ -18,7 +18,7 @@ export const selectCategoriesMap = createSelector(
       const { title, items } = category;
       // console.log(title, items);
       acc[title.toLowerCase()] = items;
-      console.log("acc", acc);
+    //   console.log("acc", acc);
       return acc;
     }, {});
   }
@@ -28,11 +28,9 @@ export const selectAllProducts = createSelector(
   [selectCategoriesMap],
   (acc) => {
     console.log("selectAllProducts fired");
-    var allProducts = [];
-    allProducts = Object.keys(acc).map((title) => {
+    const allProducts = Object.keys(acc).map((title) => {
       const products = acc[title];
       console.log(title, products);
-    //   allProducts.push(...products);
       return products;
     });
     console.log("selectAllProducts ------",allProducts.flat());

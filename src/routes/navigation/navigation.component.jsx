@@ -11,7 +11,7 @@ import { NavigationContainer, NavLinks, NavLink, LogoContainer } from './navigat
 import { useSelector, useDispatch} from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
-import { fetchCategoriesStart } from "../../store/categories/category.action";
+import { fetchCategoriesAsync } from "../../store/categories/category.action";
 import { signOutStart } from '../../store/user/user.action';
 import SearchBar from "../../components/search-bar/search-bar.component";
 
@@ -23,8 +23,8 @@ const Navigation = () => {
   const isCartOpen = useSelector(selectIsCartOpen);
 
   const signOutUser = () => dispatch(signOutStart());
-  
-  useEffect(() => { dispatch(fetchCategoriesStart())}, []);
+
+  useEffect(() => { dispatch(fetchCategoriesAsync())}, []);
 
 
   return (

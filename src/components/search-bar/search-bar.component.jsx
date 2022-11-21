@@ -15,33 +15,23 @@ const SearchBar = () => {
          setSearchField(searchFieldString);
      };
 
-    //get products data:
+    //get allProducts data:
     const allProducts = useSelector(selectAllProducts);
-    // console.log("searchbar", categoriesMap);
-
-    // transfer products data type:
-    // var allProducts= [];
-    // Object.keys(categoriesMap).map((title) => {
-    //    const products = categoriesMap[title];
-    //    console.log(title, products);
-    //    allProducts.push(...products);
-        
-//        console.log("current products", allProducts);
-//    });
+   
        console.log("all products", allProducts)
     
    
-    //filter products:
-    // const [ filteredProducts, setFilteredProducts ] = useState(allProducts);
+    // filter products:
+    const [ filteredProducts, setFilteredProducts ] = useState(allProducts);
 
-    // useEffect(() => {
-    //     const newFilteredProducts = allProducts.filter((product) => {
-    //         return product.name.toLocaleLowerCase().includes(searchField);
-    //     });
-    //     setFilteredProducts(newFilteredProducts);
-    // }, [searchField, allProducts]);
+    useEffect(() => {
+        const newFilteredProducts = allProducts.filter((product) => {
+            return product.name.toLocaleLowerCase().includes(searchField);
+        });
+        setFilteredProducts(newFilteredProducts);
+    }, [searchField, allProducts]);
   
-
+    console.log("filtered----", filteredProducts );
 
     return (
         <>
@@ -51,7 +41,7 @@ const SearchBar = () => {
             onChange={onSearchChange}
             />
         { /* <FilterResult filteredProducts={filteredProducts}/>*/}
-         { /* {searchField.length && <SearchDropdown filteredProducts={filteredProducts}/>} */}
+            {searchField.length !==0 && <SearchDropdown filteredProducts={filteredProducts}/>} 
           
         </>
     )
