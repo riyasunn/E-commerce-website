@@ -1,8 +1,7 @@
 import { SearchContainer } from './search-bar.styled';
 import { useSelector } from 'react-redux';
 import { selectAllProducts } from '../../store/categories/category.selector';
-import { useEffect, useState, useRef } from "react";
-import FilterResult from './search-result.component';
+import { useState, useRef } from "react";
 import SearchDropdown from './search-dropdown.component';
 import { useDispatch } from 'react-redux';
 import { filterProducts } from '../../store/filter/filter.action';
@@ -35,20 +34,6 @@ const SearchBar = () => {
 
      const search = () => dispatch(filterProducts(searchField, allProducts))
      console.log("search", search());
-   
-    // filter products:
-    // const [ filteredProducts, setFilteredProducts ] = useState(allProducts);
-
-    // useEffect(() => {
-    //     const newFilteredProducts = allProducts.filter((product) => {
-    //         return product.name.toLocaleLowerCase().includes(searchField);
-    //     });
-    //     setFilteredProducts(newFilteredProducts);
-    // }, [searchField, allProducts]);
-  
-    // console.log("filtered----", filteredProducts );
-
-    
 
     return (
         <SearchContainer>
@@ -59,7 +44,6 @@ const SearchBar = () => {
             ref={ref}
             />
             <div className='clear-button' onClick={clearSearchFieldHandler}>&#10005;</div>
-        { /* <FilterResult filteredProducts={filteredProducts}/>*/}
             {searchField.length !==0 && <SearchDropdown />} 
           
         </SearchContainer>

@@ -32,9 +32,6 @@ const SearchDropdown = () => {
                     <NoResultMessage> No search result</NoResultMessage>
                 )           
             }
-         
-         
-         
         </SearchDropdownContainer>
     )
 };
