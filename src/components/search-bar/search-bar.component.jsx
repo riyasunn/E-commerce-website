@@ -1,3 +1,4 @@
+import { SearchContainer } from './search-bar.styled';
 import { useSelector } from 'react-redux';
 import { selectAllProducts } from '../../store/categories/category.selector';
 import { useEffect, useState } from "react";
@@ -34,7 +35,7 @@ const SearchBar = () => {
     console.log("filtered----", filteredProducts );
 
     return (
-        <>
+        <SearchContainer>
             <input 
             type='search'
             placeholder="search products"
@@ -43,7 +44,7 @@ const SearchBar = () => {
         { /* <FilterResult filteredProducts={filteredProducts}/>*/}
             {searchField.length !==0 && <SearchDropdown filteredProducts={filteredProducts}/>} 
           
-        </>
+        </SearchContainer>
     )
 };
 
