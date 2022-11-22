@@ -10,4 +10,9 @@ export const SearchContainer = styled.div`
     width:250px;
     height:70%
    }
+   .clear-button {
+    position: absolute;
+    margin-left:200px;
+    cursor: pointer;
+   }
 `
