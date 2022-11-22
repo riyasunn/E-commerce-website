@@ -2,9 +2,10 @@ import { SearchContainer } from './search-bar.styled';
 import { useSelector } from 'react-redux';
 import { selectAllProducts } from '../../store/categories/category.selector';
 import { useEffect, useState, useRef } from "react";
-import FilterResult from './filter-result.component';
+import FilterResult from './search-result.component';
 import SearchDropdown from './search-dropdown.component';
-// import Button from '../button/button.component';
+import { useDispatch } from 'react-redux';
+import { filterProducts } from '../../store/filter/filter.action';
 
 const SearchBar = () => {
 
@@ -28,19 +29,24 @@ const SearchBar = () => {
     const allProducts = useSelector(selectAllProducts);
    
        console.log("all products", allProducts)
-    
+
+    //dispatch filter action:
+     const dispatch = useDispatch();
+
+     const search = () => dispatch(filterProducts(searchField, allProducts))
+     console.log("search", search());
    
     // filter products:
-    const [ filteredProducts, setFilteredProducts ] = useState(allProducts);
+    // const [ filteredProducts, setFilteredProducts ] = useState(allProducts);
 
-    useEffect(() => {
-        const newFilteredProducts = allProducts.filter((product) => {
-            return product.name.toLocaleLowerCase().includes(searchField);
-        });
-        setFilteredProducts(newFilteredProducts);
-    }, [searchField, allProducts]);
+    // useEffect(() => {
+    //     const newFilteredProducts = allProducts.filter((product) => {
+    //         return product.name.toLocaleLowerCase().includes(searchField);
+    //     });
+    //     setFilteredProducts(newFilteredProducts);
+    // }, [searchField, allProducts]);
   
-    console.log("filtered----", filteredProducts );
+    // console.log("filtered----", filteredProducts );
 
     
 
@@ -49,17 +55,15 @@ const SearchBar = () => {
             <input 
             type='search'
             placeholder="search products"
-            onChange={onSearchChange}
+            onChange={(e) => {onSearchChange(e); search()}}
             ref={ref}
             />
             <div className='clear-button' onClick={clearSearchFieldHandler}>&#10005;</div>
         { /* <FilterResult filteredProducts={filteredProducts}/>*/}
-            {searchField.length !==0 && <SearchDropdown filteredProducts={filteredProducts}/>} 
+            {searchField.length !==0 && <SearchDropdown />} 
           
         </SearchContainer>
     )
 };
 
 export default SearchBar;
-
-// onClick={clearItemHandler}

@@ -1,10 +1,20 @@
 import { SearchDropdownContainer, NoResultMessage } from "./search-dropdown.style";
-
+import { useNavigate } from "react-router-dom";
 import FilterProductCard from "./filter-product-card.component";
+import { useSelector } from "react-redux";
+import { selectFilterArray } from "../../store/filter/filter.selector";
 
 
 
-const SearchDropdown = ({filteredProducts}) => {
+const SearchDropdown = () => {
+    const filteredProducts = useSelector(selectFilterArray);
+    console.log("filtered products", filteredProducts);
+    console.log("length", filteredProducts.length);
+
+    const navigate = useNavigate();
+    const goToSearchResultHandler = () => {
+        navigate('/search-result');
+    }
 
     return(
         <SearchDropdownContainer>
@@ -16,11 +26,11 @@ const SearchDropdown = ({filteredProducts}) => {
                         <FilterProductCard key={product.id} product={product}/>
                     ))
                 }
-                <p >View all results</p>
+                <p onClick={goToSearchResultHandler}>View all results</p>
                 </>
                 ) : (
                     <NoResultMessage> No search result</NoResultMessage>
-                )
+                )           
             }
          
          

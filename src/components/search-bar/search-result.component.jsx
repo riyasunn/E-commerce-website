@@ -1,7 +1,7 @@
-import { FilterContainer } from "./filter-result.style";
+import { FilterContainer } from "./search-result.style";
 import ProductCard from "../product-card/product-card.component";
 
-const FilterResult = ({filteredProducts}) => {
+const SearchResult = ({filteredProducts}) => {
     
     
  
@@ -15,4 +15,4 @@ const FilterResult = ({filteredProducts}) => {
     )
 };
 
-export default FilterResult;
+export default SearchResult;
