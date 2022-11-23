@@ -1,19 +1,16 @@
-// import { useContext } from 'react';
-// import { CartContext } from '../../context/cart.context';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 import './checkout.styles.scss';
-// import { useSelector } from 'react-redux';
-// import { SelectCartItem } from '../../store/cart/cart.selector';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCart, removeItemToCart, clearItemFromCart } from "../../store/cart/cart.action";
 import { selectCartItems, selectCartTotal } from "../../store/cart/cart.selector";
 import PaymentForm from '../../components/payment-form/payment-form.component';
+import { setIsCartOpen } from '../../store/cart/cart.action';
+
 
 const Checkout = () => {
     const cartItems = useSelector(selectCartItems);
     const cartTotal = useSelector(selectCartTotal);
-
-    // const { cartItems, cartTotal } = useContext(CartContext);
+    const dispatch = useDispatch();
+    dispatch(setIsCartOpen(false));
     
 
 
