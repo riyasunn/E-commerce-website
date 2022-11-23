@@ -10,3 +10,9 @@ export const filterProducts = (searchFieldString, allProducts) => {
 };
 
 console.log("filter action fires");
+
+export const setIsFilterOpen = (boolean) => {
+
+    return createAction(FILTER_ACTION_TYPE.SET_IS_FILTER_OPEN, boolean)
+
+}

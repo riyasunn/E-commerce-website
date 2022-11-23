@@ -7,3 +7,7 @@ import { createSelector } from "reselect";
     (filter) => filter.filterProducts
  );
 
+export const selectIsFilterOpen = createSelector(
+   [selectFilterReducer],
+   (filter) => filter.isFilterOpen
+);

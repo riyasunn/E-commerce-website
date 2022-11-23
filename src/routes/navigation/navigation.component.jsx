@@ -11,9 +11,11 @@ import { NavigationContainer, NavLinks, NavLink, LogoContainer } from './navigat
 import { useSelector, useDispatch} from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { selectIsFilterOpen } from "../../store/filter/filter.selector";
 import { fetchCategoriesAsync } from "../../store/categories/category.action";
 import { signOutStart } from '../../store/user/user.action';
 import SearchBar from "../../components/search-bar/search-bar.component";
+import SearchDropdown from "../../components/search-bar/search-dropdown.component";
 
 const Navigation = () => {
   
@@ -21,7 +23,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
-
+  const isFilterOpen = useSelector(selectIsFilterOpen);
   const signOutUser = () => dispatch(signOutStart());
 
   useEffect(() => { dispatch(fetchCategoriesAsync())}, []);
@@ -34,6 +36,7 @@ const Navigation = () => {
           <CrwnLogo className="logo"/>
         </LogoContainer>
         <SearchBar />
+        { isFilterOpen && <SearchDropdown/> }
         <NavLinks>
           <NavLink to="/shop">
             SHOP
