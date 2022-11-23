@@ -43,7 +43,7 @@ const SearchBar = () => {
         <SearchContainer>
             <input 
             type='search'
-            placeholder="search products"
+            placeholder="Search products"
             onChange={(e)=> {onSearchChange(e); search()}}
             ref={ref}
             />

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SearchContainer = styled.div`
-    display: flex;
+   display: flex;
    align-items: center;
    justify-content: center;
    margin-left: 28%;
@@ -9,6 +9,10 @@ export const SearchContainer = styled.div`
    input{
     width:250px;
     height:70%
+   }
+   input[type="search"] {
+    font-size: 18px;
+    padding-left: 1rem;
    }
    .clear-button {
     position: absolute;
