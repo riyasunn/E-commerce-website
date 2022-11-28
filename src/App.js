@@ -5,9 +5,8 @@ import Authentication from "./routes/authentication/authentication.component";
 import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 import SearchResult from "./components/search-bar/search-result.component";
-import { onAuthStateChangedListener, createUserDocumentFromAuth, getCurrentUser } from "./utils/firebase/firebase.utils";
 import { useEffect } from "react";
-import { checkUserSession, setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 
 
@@ -17,7 +16,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(checkUserSession());
-    // getCurrentUser().then((user) =>console.log(user));
  }, []);
 
   return (

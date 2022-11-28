@@ -20,3 +20,4 @@ export const SearchContainer = styled.div`
     cursor: pointer;
    }
 `
+

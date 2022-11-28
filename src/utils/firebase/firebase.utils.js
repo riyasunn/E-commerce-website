@@ -101,9 +101,7 @@ export const getCategoriesAndDocuments = async () => {
 export const createUserDocumentFromAuth = async (userAuth, additionInformation = {}) => {
     if(!userAuth) return;
     const userDocRef = doc (db,'users', userAuth.uid );
-
     // console.log(userDocRef);
-
     const userSnapshot = await getDoc(userDocRef);
     // console.log(userSnapshot);
     // console.log(userSnapshot.exists());
@@ -111,7 +109,6 @@ export const createUserDocumentFromAuth = async (userAuth, additionInformation =
     if(!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date(); //this way we know when these users are signing in.
-
         try{
             await setDoc(userDocRef, {
                 displayName,
@@ -123,17 +120,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionInformation =
             console.log('error creating the user', error.message);
         }
     }
-        return userSnapshot;
-    
-    //if user data doesn't exist
-
-    //create / set the document with the data from userAuth in my collection
-
-    //if user data exists   
-
-    //return userDocRef
-
-    //try to set the document
+    return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
