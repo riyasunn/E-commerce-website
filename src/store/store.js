@@ -13,11 +13,11 @@ const persistConfig = {
     whitelist: ['cart'],
 }
 
-const sagaMiddleware = createSagaMiddleware();
+// const sagaMiddleware = createSagaMiddleware();
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middleWares = [process.env.NODE_ENV !== 'production' && logger, thunk, sagaMiddleware].filter(Boolean);
+const middleWares = [thunk, process.env.NODE_ENV !== 'production' && logger].filter(Boolean);
 
 const composeEnhancer = (process.env.NODE_ENV !== 'production' && window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
@@ -25,6 +25,6 @@ const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(persistedReducer, undefined, composedEnhancers);
 
-sagaMiddleware.run(rootSaga);
+// sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

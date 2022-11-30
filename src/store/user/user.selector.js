@@ -1,1 +1,2 @@
 export const selectCurrentUser = (state) => state.user.currentUser;
+console.log("user selector fired");
