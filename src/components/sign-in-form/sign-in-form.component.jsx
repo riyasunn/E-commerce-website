@@ -16,20 +16,19 @@ import {
 
 import { useDispatch } from "react-redux";
 import {
-  emailSignInStart,
   GoogleSignIn,
   signInWithEmail,
 } from "../../store/user/user.action";
 
 const defaultFormFields = {
   email: "",
-  password: "", //delete displayname & confirmed password
+  password: "", 
 };
 
 const SignInForm = () => {
   const dispatch = useDispatch();
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { email, password } = formFields; //delete displayname & confirmed password
+  const { email, password } = formFields; 
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
