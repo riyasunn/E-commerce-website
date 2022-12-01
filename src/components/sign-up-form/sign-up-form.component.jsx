@@ -8,7 +8,7 @@ import Button from "../button/button.component";
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
 import { useDispatch } from "react-redux";
-import {signUpStart} from '../../store/user/user.action';
+import { signUp } from '../../store/user/user.action';
 // import { UserContext } from "../../context/user.context";
 
 const defaultFormFields = {
@@ -33,32 +33,24 @@ const SignUpForm = () => {
     setFormFields (defaultFormFields);
   }
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   if(password !== confirmPassword) {
-  //     alert("passwords do not match");
-  //     return;
-  //   }
-
-  //   try{
-  //     dispatch(signUpStart(email, password, displayName));
-  //     // const { user } = await createAuthUserWithEmailAndPassword(email, password);
-  //     // // console.log(response);
-  //     // // setCurrentUser(user);
-
-  //     // await createUserDocumentFromAuth(user, { displayName });
-
-  //     resetFormFields();
-
-  //   }catch(error) {
-  //     if(error.code === 'auth/email-already-in-use') {
-  //       alert('cannot create user, email already in use');
-  //     }else{
-  //     console.log('user creation encoutered an error', error);
-  //     }
-  //   }
-
-  // };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if(password !== confirmPassword) {
+      alert("passwords do not match");
+      return;
+    };
+    try{
+      dispatch(signUp(email, password, displayName));
+      console.log("email+password", email, password, displayName);
+      resetFormFields();
+    }catch(error) {
+      if(error.code === 'auth/email-already-in-use') {
+        alert('cannot create user, email already in use');
+      }else{
+      alert('user creation encoutered an error', error)
+      }
+    }
+  };
 
   const handleChange = (event) => {
     const { type, name, value } = event.target;
@@ -70,7 +62,7 @@ const SignUpForm = () => {
     <div className="sign-up-container">
       <h2>Don't have an account?</h2>
       <span>Sign up with your email and password</span>
-      <form > 
+      <form onSubmit={handleSubmit}> 
         <FormInput
           label="Display Name"
           type="text"

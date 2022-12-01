@@ -12,21 +12,22 @@ export const userReducer = (state = INITIAL_STATE , action) => {
     const { type, payload } = action;
     console.log("user reducer recv", type, payload);
     switch(type) {
-        case USER_ACTION_TYPES.SIGN_IN_SUCCESS_GOOGLE:
-            console.log("user reducer fire SIGN_IN_SUCCESS_GOOGLE");
+        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
+            console.log("user reducer fire SIGN_IN_WITH_GOOGLE");
             return {
                 ...state,
-                currentUser:payload,
+                currentUser: payload,
             };
             
-        // case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
+        // case USER_ACTION_TYPES.SIGN_UP_SUCCESS:
         //     return {
         //         ...state,
-        //         currentUser:null,
+        //         currentUser: payload,
         //     };
+            
         case USER_ACTION_TYPES.SIGN_IN_FAILED:
+        case USER_ACTION_TYPES.SIGN_UP_FAILED:
             console.log("user reducer fire SIGN_IN_FAILED");
-        // case USER_ACTION_TYPES.SIGN_UP_FAILED:
         // case USER_ACTION_TYPES.SIGN_OUT_FAILED:
             return {
                 ...state,

@@ -16,9 +16,9 @@ import {
 
 import { useDispatch } from "react-redux";
 import {
-  googleSignInStart,
   emailSignInStart,
-  signInWithGoogle,
+  GoogleSignIn,
+  signInWithEmail,
 } from "../../store/user/user.action";
 
 const defaultFormFields = {
@@ -37,44 +37,20 @@ const SignInForm = () => {
 
   const signInWithGooglePopup = async() => {
     console.log("signInWithGooglePopup");
-    dispatch(signInWithGoogle());
+    dispatch(GoogleSignIn());
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  // if(password !== confirmPassword) {
-  //   alert("passwords do not match");      no need to compaire password & comfirmed password
-  //   return;
-  // }
-
-  // try{
-  //   dispatch(emailSignInStart(email, password));
-  //   // await signInAuthUserWithEmailAndPassword (email, password);
-
-  // //  console.log(response);
-
-  // // setCurrentUser(user); //run setCurrentUser when the await user come back; deleted becuz setuser in usercontext file
-  //   resetFormFields();
-
-  // }catch(error) {
-  //   console.log('user sign in failed', error);
-  //  switch (error.code) {
-  //   case 'auth/wrong-password':
-  //     alert('incorrect password for email');
-  //     break;
-  //   case 'auth/user-not-found':
-  //     alert('no user associated with this email');
-  //     break;
-  //   default:
-  //     console.log(error);
-  //  }
-  // if (error.code === "auth/wrong-password") {
-  //   alert("incorrect password for email");
-  // }else if(error.code === "auth/user-not-found") {
-  //   alert("no user associated with this email")
-  // }
-
-  // };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try{
+      dispatch(signInWithEmail(email, password));
+      console.log("email+password", email, password);
+      resetFormFields();
+    } catch(error) {
+      console.log('sign in with email failed', error);
+      alert("Sign in encountered an error", error);
+      };
+  };
 
   const handleChange = (event) => {
     const { type, name, value } = event.target;
@@ -86,7 +62,7 @@ const SignInForm = () => {
     <div className="sign-up-container">
       <h2>Already have an account?</h2>
       <span>Sign in with your email and password</span>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
           type="email"
