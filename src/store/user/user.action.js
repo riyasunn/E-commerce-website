@@ -1,6 +1,6 @@
 import { createAction } from "../../utils/reducer/reducer.utils";
 import { USER_ACTION_TYPES } from "./user.types";
-import { signInWithGooglePopup, createUserDocumentFromAuth, createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup, createUserDocumentFromAuth, createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword, signOutUser } from "../../utils/firebase/firebase.utils";
 
 // SIGN IN WITH GOOGLE:
   //create actions for google-sign-in:
@@ -103,3 +103,22 @@ export const signInWithEmail = (email, password) => async(dispatch) => {
   };
 
 };
+
+//SIGN-OUT:
+  //create action for sign-out:
+export const signOutStart = () => createAction(USER_ACTION_TYPES.SIGN_OUT_START);
+export const signOutSuccess = () => createAction(USER_ACTION_TYPES.SIGN_OUT_SUCCESS);
+export const signOutFailed = (error) => createAction(USER_ACTION_TYPES.SIGN_OUT_FAILED, error);
+
+export const signOut = () => async (dispatch) => {
+  dispatch(signOutStart());
+
+  try {
+     await signOutUser();
+     console.log("sign-out");
+     dispatch(signOutSuccess());
+  } catch (error) {
+    dispatch(signOutFailed());
+  };
+
+}

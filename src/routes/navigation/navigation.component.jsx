@@ -13,7 +13,7 @@ import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { selectIsFilterOpen } from "../../store/filter/filter.selector";
 import { fetchCategoriesAsync } from "../../store/categories/category.action";
-// import { signOutStart } from '../../store/user/user.action';
+import { signOut } from '../../store/user/user.action';
 import SearchBar from "../../components/search-bar/search-bar.component";
 import SearchDropdown from "../../components/search-bar/search-dropdown.component";
 
@@ -24,7 +24,7 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
   const isFilterOpen = useSelector(selectIsFilterOpen);
-  // const signOutUser = () => dispatch(signOutStart());
+  const signOutUser = () => dispatch(signOut());
 
   useEffect(() => { dispatch(fetchCategoriesAsync())}, []);
 
@@ -42,7 +42,7 @@ const Navigation = () => {
             SHOP
           </NavLink>
           {
-            currentUser ? (<NavLink as="span" >
+            currentUser ? (<NavLink as="span" onClick={signOutUser}>
             SIGN OUT 
             </NavLink>) 
               :
