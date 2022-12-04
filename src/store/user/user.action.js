@@ -1,6 +1,6 @@
 import { createAction } from "../../utils/reducer/reducer.utils";
 import { USER_ACTION_TYPES } from "./user.types";
-import { signInWithGooglePopup, createUserDocumentFromAuth, createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword, signOutUser } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup, createUserDocumentFromAuth, createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword, signOutUser, getCurrentUser } from "../../utils/firebase/firebase.utils";
 
 // SIGN IN WITH GOOGLE:
   //create actions for google-sign-in:
@@ -120,5 +120,23 @@ export const signOut = () => async (dispatch) => {
   } catch (error) {
     dispatch(signOutFailed());
   };
+
+};
+
+// check user session:
+
+export const checkUserSession = () => async(dispatch) => {
+ const userAuth = await getCurrentUser();
+ console.log ("check user session--userAuth", userAuth);
+ if (!userAuth) return;
+ 
+ try {
+  const userSnapshot = await createUserDocumentFromAuth(userAuth);
+  console.log("check user session--userSnapshot", userSnapshot);
+  dispatch(signInSuccess(userSnapshot));
+} catch (error) {
+  console.log("sign in failed ", error);
+  dispatch(signInFailed(error));
+};
 
 }

@@ -12,11 +12,11 @@ import { useDispatch } from "react-redux";
 
 
 const App = () => {
-//   const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-//   useEffect(() => {
-//     dispatch(checkUserSession());
-//  }, []);
+  useEffect(() => {
+    dispatch(checkUserSession());
+ }, []);
 
   return (
     <Routes>
