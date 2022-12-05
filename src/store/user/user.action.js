@@ -80,6 +80,13 @@ export const signUp = (email, password, displayName) => async(dispatch) => {
   } catch (error) {
     dispatch(signUpFailed(error));
     console.log("sign up failed", error);
+    if(error.code === "auth/weak-password") {
+      alert("Password should be at least 6 characters");
+    } else if (error.code === "auth/email-already-in-use") {
+      alert("Cannot create user, email already in use");
+    } else {
+      alert("user creation encountered an error", error);
+    };
   };
 };
 
@@ -100,6 +107,14 @@ export const signInWithEmail = (email, password) => async(dispatch) => {
     dispatch(signInSuccessWithEmail(userAuth));
   } catch (error) {
     dispatch(signInFailed(error));
+    console.log("sign-in-with-email failed", error);
+    if(error.code === "auth/wrong-password") {
+      alert("Cannot sign-in, wrong password");
+    } else if (error.code === "auth/user-not-found") {
+      alert("Cannot sign-in, user not found");
+    } else {
+      alert("Sign-in encountered an error", error);
+    };
   };
 
 };
@@ -129,7 +144,7 @@ export const checkUserSession = () => async(dispatch) => {
  const userAuth = await getCurrentUser();
  console.log ("check user session--userAuth", userAuth);
  if (!userAuth) return;
- 
+
  try {
   const userSnapshot = await createUserDocumentFromAuth(userAuth);
   console.log("check user session--userSnapshot", userSnapshot);

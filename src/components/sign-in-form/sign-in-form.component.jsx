@@ -41,14 +41,9 @@ const SignInForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try{
-      dispatch(signInWithEmail(email, password));
-      console.log("email+password", email, password);
-      resetFormFields();
-    } catch(error) {
-      console.log('sign in with email failed', error);
-      alert("Sign in encountered an error", error);
-      };
+    dispatch(signInWithEmail(email, password));
+    console.log("email+password", email, password);
+    resetFormFields();
   };
 
   const handleChange = (event) => {

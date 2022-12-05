@@ -39,17 +39,9 @@ const SignUpForm = () => {
       alert("passwords do not match");
       return;
     };
-    try{
-      dispatch(signUp(email, password, displayName));
-      console.log("email+password", email, password, displayName);
-      resetFormFields();
-    }catch(error) {
-      if(error.code === 'auth/email-already-in-use') {
-        alert('cannot create user, email already in use');
-      }else{
-      alert('user creation encoutered an error', error)
-      }
-    }
+    dispatch(signUp(email, password, displayName));
+    console.log("email+password", email, password, displayName);
+    resetFormFields();
   };
 
   const handleChange = (event) => {
