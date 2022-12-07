@@ -4,7 +4,7 @@ export const SearchContainer = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
-   margin-left: 28%;
+   margin-left: 38%;
    margin-right: 28%;
    input{
     width:250px;
@@ -13,6 +13,9 @@ export const SearchContainer = styled.div`
    input[type="search"] {
     font-size: 18px;
     padding-left: 1rem;
+   }
+   input::-webkit-search-cancel-button {
+      display: none;
    }
    .clear-button {
     position: absolute;

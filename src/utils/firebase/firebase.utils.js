@@ -11,15 +11,15 @@ import {
 } from "firebase/auth";
 
 import {
-    getFirestore,
-    doc,
-    getDoc,
-    setDoc,
-    collection,
-    writeBatch,
-    query,
-    getDocs,
- } from "firebase/firestore"
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCw_VIyLrcjZrpD-GsmXwJRyVKSsqVgbyE",
@@ -35,46 +35,50 @@ const firebaseApp = initializeApp(firebaseConfig);
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-    prompt: "select_account"
+  prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-    const collectionRef = collection(db, collectionKey);
-    const batch = writeBatch(db);
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
 
-    objectsToAdd.forEach((object) => {
-        const docRef = doc(collectionRef, object.title.toLowerCase());
-        batch.set(docRef, object);
-    });
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
 
-    await batch.commit();
-    console.log('done');
+  await batch.commit();
+  console.log("done");
 };
 
-
 export const getCategoriesAndDocuments = async () => {
-    const collectionRef = collection(db, 'categories');
-    const q = query(collectionRef);
+  const collectionRef = collection(db, "categories");
+  const q = query(collectionRef);
 
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+  const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 
-    // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    //     const { title, items } = docSnapshot.data();
-    //     // console.log(title, items);
-    //     acc[title.toLowerCase()] = items;
-    //     // console.log(acc);
-    //     return acc;
-    // },{})
+  // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+  //     const { title, items } = docSnapshot.data();
+  //     // console.log(title, items);
+  //     acc[title.toLowerCase()] = items;
+  //     // console.log(acc);
+  //     return acc;
+  // },{})
 
-    // return categoryMap;
-}
+  // return categoryMap;
+};
 /*原来的数据是这样的格式：
  [
   {
@@ -98,58 +102,78 @@ export const getCategoriesAndDocuments = async () => {
 也就是说将[{key1:val1,key2:val2},{}...] => [{val1:val2},{}...]
 */
 
-export const createUserDocumentFromAuth = async (userAuth, additionInformation = {}) => {
-    if(!userAuth) return;
-    const userDocRef = doc (db,'users', userAuth.uid );
-    console.log("firebase userDocRef", userDocRef);
-    const userSnapshot = await getDoc(userDocRef);
-    console.log("firebase userSnapshot", userSnapshot);
-    // console.log(userSnapshot.exists());
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionInformation = {}
+) => {
+  if (!userAuth) return;
+  const userDocRef = doc(db, "users", userAuth.uid);
+  console.log("firebase userDocRef", userDocRef);
+  const userSnapshot = await getDoc(userDocRef);
+  console.log("firebase userSnapshot", userSnapshot);
+  // console.log(userSnapshot.exists());
 
-    if(!userSnapshot.exists()) {
-        const { displayName, email } = userAuth;
-        const createdAt = new Date(); //this way we know when these users are signing in.
-        try{
-            await setDoc(userDocRef, {
-                displayName,
-                email,
-                createdAt,
-                ...additionInformation,
-            });   //pass the data we want to set with
-        } catch(error) {
-            console.log('error creating the user', error.message);
-        }
+  if (!userSnapshot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date(); //this way we know when these users are signing in.
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionInformation,
+      }); //pass the data we want to set with
+    } catch (error) {
+      console.log("error creating the user", error.message);
     }
-    return userSnapshot;
+  }
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
-    if(!email || !password) return;
+  if (!email || !password) return;
 
-   return await createUserWithEmailAndPassword(auth, email,password);
-}
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
-    if(!email || !password) return;
-    
-   return await signInWithEmailAndPassword(auth, email,password);
-}
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
+};
 
 export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) => {
-    return onAuthStateChanged(auth, callback);
-}
+  return onAuthStateChanged(auth, callback);
+};
 
 export const getCurrentUser = () => {
-    return new Promise((resolve, reject) => {
-        const unsubscribe = onAuthStateChanged(
-            auth,
-            (userAuth) => {
-                unsubscribe();
-                resolve(userAuth);
-            },
-            reject
-        );
-    });
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
+};
+
+// Get displayname from firestore
+export const getUserFromFireStore = async (uid) => {
+  const userDocRef = doc(db, "users", uid);
+  console.log("firebase userDocRef", userDocRef);
+  const userSnapshot = await getDoc(userDocRef);
+  console.log("firebase userSnapshot", userSnapshot);
+  console.log(userSnapshot.exists());
+
+  if (userSnapshot.exists()) {
+    console.log("firebase userData", userSnapshot.data());
+    const {displayName} = userSnapshot.data();
+    return displayName;
+    } else {
+        console.log("No such document!");
+    }
 };

@@ -3,6 +3,8 @@ import { USER_ACTION_TYPES } from "./user.types";
 const INITIAL_STATE = {
     currentUser: null,
     error: null,
+    userName: '',
+    isSignOutOpen: false,
 };
 
 export const userReducer = (state = INITIAL_STATE , action) => {
@@ -30,6 +32,18 @@ export const userReducer = (state = INITIAL_STATE , action) => {
                 error: payload,
             };
             
+        case USER_ACTION_TYPES.GET_USER_NAME:
+            return {
+                ...state,
+                userName: payload,
+            };
+
+        case USER_ACTION_TYPES.IS_SIGN_OUT_OPEN:
+            return {
+                ...state,
+                isSignOutOpen: payload,
+            };
+
         default:
             return state;
     };

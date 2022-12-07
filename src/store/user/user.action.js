@@ -1,6 +1,6 @@
 import { createAction } from "../../utils/reducer/reducer.utils";
 import { USER_ACTION_TYPES } from "./user.types";
-import { signInWithGooglePopup, createUserDocumentFromAuth, createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword, signOutUser, getCurrentUser } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup, createUserDocumentFromAuth, createAuthUserWithEmailAndPassword, signInAuthUserWithEmailAndPassword, signOutUser, getCurrentUser, getUserFromFireStore } from "../../utils/firebase/firebase.utils";
 
 // SIGN IN WITH GOOGLE:
   //create actions for google-sign-in:
@@ -11,6 +11,8 @@ export const googleSignInSuccess = (user) => {
 };
 //create action for sign-in failed:
 export const signInFailed = (error) => createAction(USER_ACTION_TYPES.SIGN_IN_FAILED, error);
+//create action for get-user-name:
+export const getUserName = (userName) => createAction(USER_ACTION_TYPES.GET_USER_NAME, userName);
 
 export const GoogleSignIn = () => async(dispatch) => {
   dispatch(googleSignInStart());
@@ -19,8 +21,11 @@ export const GoogleSignIn = () => async(dispatch) => {
     const {user} = await signInWithGooglePopup();
     // console.log("google userAuth.user", user);
     const userSnapshot = await createUserDocumentFromAuth(user);
-    // console.log("userSnapshot in action", userSnapshot.id);
+    // console.log("userSnapshot in action", userSnapshot.data());
     dispatch(googleSignInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }));
+    const {displayName} = userSnapshot.data();
+    // console.log("google-sign-in user name", displayName);
+    dispatch(getUserName(displayName))
   } catch (error) {
     dispatch(signInFailed(error));
   };
@@ -61,7 +66,10 @@ export const onSignUPSuccess = (user) => async(dispatch) => {
   dispatch(signUpSuccess(user));
 
   try {
-  dispatch(signInAfterSignUp(user));
+  dispatch(signInAfterSignUp(user,user.displayName));
+  console.log("sign In After SignUp user", user);
+  const {displayName} = user;
+  dispatch(getUserName(displayName));
   } catch (error) {
   console.log("sign In After SignUp failed", error);
   };
@@ -105,6 +113,13 @@ export const signInWithEmail = (email, password) => async(dispatch) => {
     const userAuth = await signInAuthUserWithEmailAndPassword(email, password);
     console.log("Sign-in-email userAuth", userAuth);
     dispatch(signInSuccessWithEmail(userAuth));
+//get user name:
+    const {user: {uid}} = userAuth;
+    console.log("getUserFromFireStore fired", uid);
+    const displayName = await getUserFromFireStore(uid);
+    console.log("Sign-in-email display name", displayName);
+    dispatch(getUserName(displayName));
+
   } catch (error) {
     dispatch(signInFailed(error));
     console.log("sign-in-with-email failed", error);
@@ -139,7 +154,6 @@ export const signOut = () => async (dispatch) => {
 };
 
 // check user session:
-
 export const checkUserSession = () => async(dispatch) => {
  const userAuth = await getCurrentUser();
  console.log ("check user session--userAuth", userAuth);
@@ -149,9 +163,18 @@ export const checkUserSession = () => async(dispatch) => {
   const userSnapshot = await createUserDocumentFromAuth(userAuth);
   console.log("check user session--userSnapshot", userSnapshot);
   dispatch(signInSuccess(userSnapshot));
-} catch (error) {
-  console.log("sign in failed ", error);
-  dispatch(signInFailed(error));
+//get user name:
+  const {id} = userSnapshot;
+  const displayName = await getUserFromFireStore(id);
+  console.log("Sign-in-email display name", displayName);
+  dispatch(getUserName(displayName));
+  } catch (error) {
+    console.log("sign in failed ", error);
+    dispatch(signInFailed(error));
+  };
 };
 
+// create action for IS_SIGN-OUT_OPEN:
+export const SetIsSignOutOpen = (boolean) => {
+  return createAction(USER_ACTION_TYPES.IS_SIGN_OUT_OPEN, boolean);
 }
