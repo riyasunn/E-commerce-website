@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCartTotal } from '../../store/cart/cart.selector';
-import { selectCurrentUser } from '../../store/user/user.selector';
+import { selectCurrentUser, selectUserName } from '../../store/user/user.selector';
 
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 
 import Button, { BUTTON_TYPE_CLASSES }from '../button/button.component';
 
@@ -16,6 +16,7 @@ const PaymentForm = () => {
 
     const amount = useSelector(selectCartTotal);
     const currentUser = useSelector(selectCurrentUser);
+    const displayName = useSelector(selectUserName);
     const [isProcessingPayment, setIsProcessPayment] = useState(false);
 
 
@@ -37,6 +38,7 @@ const PaymentForm = () => {
 
         console.log(response);
         // const clientSecret = response.paymentItent.client_secret //可以destructure as below:
+
         const {paymentIntent: { client_secret }} = response;
         console.log(client_secret);
 
@@ -44,7 +46,7 @@ const PaymentForm = () => {
             payment_method: {
                 card:elements.getElement(CardElement),
                 billing_details: {
-                    name: currentUser ? currentUser.displayName : 'Guest',
+                    name: currentUser ? displayName : 'Guest',
                 },
             }
         });
@@ -58,12 +60,30 @@ const PaymentForm = () => {
             }
     };
 
+    const CARD_ELEMENT_OPTIONS = {
+        style: {
+            base: {
+              color: "#32325d",
+              fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+              fontSmoothing: "antialiased",
+              fontSize: "30px",
+              "::placeholder": {
+                color: "#aab7c4",
+              },
+            },
+            invalid: {
+              color: "#fa755a",
+              iconColor: "#fa755a",
+            },
+          },
+    }
+
     return (
         <PaymentFormContainer>
             <FormContainer onSubmit={paymentHandler}>
                 <h1>Credit card payment: </h1> 
+                    <CardElement options={CARD_ELEMENT_OPTIONS}/>
                 
-                <CardElement />
                 
                 <PaymentButton isLoading={isProcessingPayment} buttonType={BUTTON_TYPE_CLASSES.inverted}>Pay now</PaymentButton>
             </FormContainer>

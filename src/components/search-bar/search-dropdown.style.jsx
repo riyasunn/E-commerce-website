@@ -12,7 +12,7 @@ export const SearchDropdownContainer = styled.div`
   top: 90px;
   z-index: 5;
   overflow: scroll;
-  margin-left:29%;
+  margin-left:35%;
   p {
     text-align:center;
     font-size:18px;

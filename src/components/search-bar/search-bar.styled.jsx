@@ -4,8 +4,8 @@ export const SearchContainer = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
-   margin-left: 38%;
-   margin-right: 28%;
+   margin-left: 35%;
+   /* margin-right: 2%; */
    input{
     width:250px;
     height:70%

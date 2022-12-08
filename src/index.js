@@ -19,15 +19,9 @@ root.render(
     <Provider store={store}>
       < PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-        {/*<UserProvider>*/}
-          { /*<CategoriesProvider> */}
-              { /* <CartProvider>*/}
               <Elements stripe={stripePromise}>
                 <App />
               </Elements>
-              { /*  </CartProvider>*/}
-        {  /* </CategoriesProvider>*/}
-        {  /*</UserProvider>*/}
         </BrowserRouter>
       </PersistGate>
     </Provider>
