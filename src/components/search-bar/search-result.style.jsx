@@ -11,7 +11,7 @@ export const FilterContainer = styled.div`
         align-self: center;
         justify-self: center;
         margin-top:200px;
-        font-size:50px;
+        font-size: 50px;
     }
 `;
 

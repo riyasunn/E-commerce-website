@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const Products = styled.div`
-  height: 280px;
+  height: 180px;
   display: flex;
   padding-bottom: 20px;
   
   img {
     width: 30%;
-  }
+  };
 
 
  .details {
@@ -24,6 +24,8 @@ export const Products = styled.div`
         min-width: 135px;
         font-size:11px
     }
+
+    
  }
   
   
