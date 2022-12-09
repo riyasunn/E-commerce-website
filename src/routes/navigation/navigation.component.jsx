@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { NavigationContainer, NavLinks, NavLink, LogoContainer } from './navigation.styles';
+import { NavigationContainer, NavLinks, NavLink, LogoContainer, HeaderContainer } from './navigation.styles';
 import { useSelector, useDispatch} from "react-redux";
 import { selectCurrentUser, selectUserName, selectIsSignOutOpen } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
@@ -33,6 +33,7 @@ const Navigation = () => {
 
   return (
     <Fragment>
+      
       < NavigationContainer >
         <LogoContainer to="/">
           <CrwnLogo className="logo"/>

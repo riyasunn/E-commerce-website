@@ -14,9 +14,14 @@ const SearchResult = () => {
     dispatch(setIsFilterOpen(false));
     return (
         <FilterContainer>
-            {filteredProducts.map((product) => 
-            <ProductCard key={product.id} product={product}/>)
-            }
+        
+            {filteredProducts.length ? (
+                filteredProducts.map((product) => 
+                <ProductCard key={product.id} product={product}/>)
+            ) : (
+                <h1>No search result</h1>
+            )}
+            
         </FilterContainer>
     )
 };

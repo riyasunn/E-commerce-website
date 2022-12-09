@@ -11,7 +11,7 @@ export const SearchDropdownContainer = styled.div`
   background-color: white;
   top: 90px;
   z-index: 5;
-  overflow: scroll;
+  overflow-x: hidden;
   margin-left:35%;
   p {
     text-align:center;

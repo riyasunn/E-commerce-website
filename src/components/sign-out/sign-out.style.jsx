@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { BaseButton, GoogleSignInButton, InvertedButton } from '../button/button.styles';
+import { BaseButton } from '../button/button.styles';
 
 export const SignOutIconContainer = styled.div`
   width: 80px;

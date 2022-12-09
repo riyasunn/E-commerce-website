@@ -30,7 +30,7 @@ export const CartItems = styled.div`
   height: 280px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow-x: hidden;
 `
 
 
