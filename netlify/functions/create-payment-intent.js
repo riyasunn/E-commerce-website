@@ -18,7 +18,7 @@ exports.handler = async (event) => {
         }     //返回：200 代表成功，将paymentIntent 作为message body 返回
 
     } catch (error) {
-        console.log({error});
+        console.log("netlify create-payment-intend", {error});
 
         return {
             statusCode: 400,

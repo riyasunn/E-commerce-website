@@ -24,8 +24,6 @@ export const Products = styled.div`
         min-width: 135px;
         font-size:11px
     }
-
-    
  }
   
   
