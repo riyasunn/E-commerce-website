@@ -8,7 +8,7 @@ import SearchResult from "./components/search-bar/search-result.component";
 import { useEffect } from "react";
 import { checkUserSession } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
-
+import { GlobalStyle } from "./global.styles";
 
 
 const App = () => {
@@ -19,6 +19,8 @@ const App = () => {
  }, []);
 
   return (
+    <>
+    <GlobalStyle />
     <Routes>
       
       <Route path="/" element={<Navigation />} >
@@ -30,6 +32,7 @@ const App = () => {
         
       </Route>
     </Routes>
+    </>
   );
 };
 

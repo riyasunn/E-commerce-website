@@ -62,24 +62,6 @@ const PaymentForm = () => {
         }
     };
 
-    // const CARD_ELEMENT_OPTIONS = {
-    //     style: {
-    //         base: {
-    //           color: "#32325d",
-    //           fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-    //           fontSmoothing: "antialiased",
-    //           fontSize: "35px",
-    //           "::placeholder": {
-    //             color: "#aab7c4",
-    //           },
-    //         },
-    //         invalid: {
-    //           color: "#fa755a",
-    //           iconColor: "#fa755a",
-    //         },
-    //       },
-    // };
-
     return (
         <PaymentFormContainer>
             <FormContainer onSubmit={paymentHandler}>
@@ -94,5 +76,3 @@ const PaymentForm = () => {
 
 export default PaymentForm;
 
-
-//option={CARD_ELEMENT_OPTIONS}
