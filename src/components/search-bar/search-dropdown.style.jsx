@@ -18,6 +18,11 @@ export const SearchDropdownContainer = styled.div`
     font-size:18px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 800px) {
+    margin-left:5%; 
+    width: 330px;
+    }
 `;
 
 export const NoResultMessage = styled.p`

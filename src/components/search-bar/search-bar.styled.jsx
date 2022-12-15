@@ -22,5 +22,21 @@ export const SearchContainer = styled.div`
     margin-left:200px;
     cursor: pointer;
    }
+
+   @media screen and (max-width: 800px) {
+      margin-left:5%;
+      input{
+         width: 150px;
+      }
+      input[type="search"] {
+         font-size: 15px;
+         padding-left: .5rem;
+      }
+      .clear-button {
+         position: absolute;
+         margin-left:120px;
+         cursor: pointer;
+      }
+   }
 `
 
