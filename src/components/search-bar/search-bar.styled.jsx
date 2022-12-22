@@ -4,11 +4,11 @@ export const SearchContainer = styled.div`
    display: flex;
    align-items: center;
    justify-content: center;
-   margin-left: 35%;
+   /* margin-left: 35%; */
    /* margin-right: 2%; */
    input{
     width:250px;
-    height:70%
+    height:2rem;
    }
    input[type="search"] {
     font-size: 18px;
@@ -19,7 +19,7 @@ export const SearchContainer = styled.div`
    }
    .clear-button {
     position: absolute;
-    margin-left:200px;
+    margin-left:220px;
     cursor: pointer;
    }
 

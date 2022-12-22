@@ -22,6 +22,7 @@ export const LogoContainer = styled(Link)`
   /* width: 70px; */
   padding: 25px;
   display: flex;
+  /* flex-grow: 1; */
   align-items: center;
 
   @media screen and (max-width: 800px) {
@@ -30,20 +31,29 @@ export const LogoContainer = styled(Link)`
 
   }
 `;
-export const NavLinks = styled.div`
-  width: 50%;
-  height: 100%;
+// export const NavLinks = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-end;
+
+//   @media screen and (max-width: 800px) {
+//    width: 80%;
+
+//   }
+// `;
+// export const NavLink = styled(Link)`
+//   padding: 10px 15px;
+//   cursor: pointer;
+// `;
+
+export const SearchBarContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
 
   @media screen and (max-width: 800px) {
-   width: 80%;
+    margin-right: 40px;
 
   }
-`;
-export const NavLink = styled(Link)`
-  padding: 10px 15px;
-  cursor: pointer;
-`;
-
+`
