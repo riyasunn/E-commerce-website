@@ -5,6 +5,8 @@ export const Title = styled.h2`
     text-align: center;
     margin-bottom: 28px;
     cursor: pointer;
+
+  
 `;
 
 export const CategoryContainer = styled.div`
@@ -15,6 +17,7 @@ export const CategoryContainer = styled.div`
 
     @media screen and (max-width: 800px) {
         grid-template-columns: 1fr 1fr;
+        
     }
 
     @media screen and (max-width: 400px) {

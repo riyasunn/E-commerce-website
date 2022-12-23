@@ -24,9 +24,11 @@ export const SearchContainer = styled.div`
    }
 
    @media screen and (max-width: 800px) {
-      margin-left:5%;
+      /* margin-left:3%; */
+      /* margin-right:60px; */
       input{
          width: 150px;
+         height: 40px;
       }
       input[type="search"] {
          font-size: 15px;

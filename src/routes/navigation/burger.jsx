@@ -4,10 +4,12 @@ import RightNav from "./right-nav";
 
 const StyledBurger = styled.div`
     width: 2rem;
-    height: 1.3rem;
+    height: 1.5rem;
     position: fixed;
-    top: 40px;
-    right: 40px;
+    top: 27px;
+    right: 30px;
+    margin-left: 10px;
+    /* left: 40px; */
     display: none;
     z-index: 1000;
   /* width: 70px; */
@@ -19,7 +21,7 @@ const StyledBurger = styled.div`
         
     }
     div {
-        width: 1.3rem;
+        width: 1.5rem;
         height: .2rem;
         background-color: ${({open})=> open ? '#ccc' : ' #333'};         
         border-radius: 10px;
