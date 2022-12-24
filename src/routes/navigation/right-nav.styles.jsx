@@ -6,7 +6,7 @@ export const NavLinks = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
         flex-flow: column nowrap;
         justify-content: flex-start;
         align-items: flex-start;
@@ -28,7 +28,7 @@ export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
     padding: 20px 10px;
     font-weight: bold;
   }
